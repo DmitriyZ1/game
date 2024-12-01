@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="menu.css">
+    <link rel="stylesheet" href="game.css">
+    <title>Game</title>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="main">
+            <div class="menu">
+                <h1 class="name-game">ТАНКОВАЯ СУЕТА</h1>
+                <h2 class="title-menu"></h2>
+                <div class="menu-content">
+                    <div class="runner-menu" id="runner">
+                        <div class="arrow-runner"> </div>
+                    </div>
+                    <ul class="list-menu">
+                    </ul>
+                    <div class="thumb-menu">
+                        <input type="range" class="range-menu green-range" min="1" max="8" value="4">
+                        <div class="count"></div>
+                        <div class="start" id="start-button">В БОЙ!</div>
+                    </div>
+                    <div class="help">
+                        <div class="help-wraper">
+                            <div class="help-hint"> &#129046; &#129044; &#129045;&#129047;
+                                <span>- двигаться</span>
+                            </div>
+                            <div class="help-hint"> space (пробел)
+                                <span>- стрелять</span>
+                            </div>
+                            <div class="help-ok" id="help">Понятно</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-wrap">
+                <canvas class="canvas-field" id="game"> </canvas>
+                <div class="game-info">
+                    <div class="info-count">
+                        <div class="info-score"> Очков: <span class="score-span">0</span> </div>
+                        <div class="info-kills"> Убийств: <span class="kills-span">0</span> </div>
+                    </div>
+                    <div class="time">00:00:00</div>
+                    <div class="info-hp"></div>
+
+                    <div class="result">
+                        <div class="game-over">
+                            <div class="over"> ИГРА </div>
+                            <div class="over"> ОКОНЧЕНА</div>
+                            <div class="result-title">Результат</div>
+                            <div class="result-item">Время игры: <span id="out-teme-result"> </span></div>
+                            <div class="result-item">Убийств: <span id="out-kills-result"> </span> </div>
+                            <div class="result-item">Очки: <span id="out-score-result"> </span></div>
+                            <div class="result-buttons">
+                                <div class="result-button" id="exit-menu">Меню</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="version">v1.0</div>
+        </div>
+
+        <script src="script.js" type="module"></script>
+</body>
+
+</html>

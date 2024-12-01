@@ -1,0 +1,169 @@
+@font-face {
+    font-family: "Honors";
+    src:url("./fonts/HONORSansVFNormal.ttf")
+}
+
+@font-face {
+    font-family: "Roadkill";
+    src:url("./fonts/Roadkill.otf")
+}
+
+@font-face {
+    font-family: "cyrillic";
+    src:url("./fonts/specialelite-cyrillic.ttf")
+}
+
+.menu{
+    position: relative;
+    width: 30%;
+    min-height: 300px;
+    background-color: rgb(0, 0, 0);
+    margin: 50px auto;
+    font-family: 'cyrillic','Courier New', Courier, monospace;
+}
+
+.name-game{
+    margin: 0 auto;
+    font-family: 'Roadkill','Courier New', Courier, monospace;
+    color: rgb(225, 139, 62);
+    text-align: center;
+    font-size: 5rem;
+    margin-bottom: 30px;
+    letter-spacing: .5rem;
+    width: 480px;
+}
+
+.help{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0, 0, 0);
+}
+
+.help-wraper{
+    font-size: 3rem;
+    color: rgb(0 171 181);
+    width: 70%;
+    margin: 200px auto;
+    text-align: center;
+}
+
+.help-hint span{
+    font-size: 2.5rem;
+    color: wheat;
+}
+
+.help-ok{
+    margin-top: 40px;
+    color: wheat;
+    cursor: pointer;
+}
+
+.help-ok:hover{
+    color: rgb(255, 27, 27);
+}
+
+.menu-content{
+    margin: 0 auto;
+    width: 480px;
+    margin-top: 30px;
+    position: relative;
+}
+
+.title-menu{
+    width: 480px;
+    margin: 0 auto;
+    font-size: 3.2rem;
+    color: wheat;
+    text-align: center;
+}
+
+.list-menu{
+    font-size: 3rem;
+    color: wheat;
+    list-style: none;
+    width: 70%;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+.item-menu{
+    padding-left: 20px;
+}
+
+.item-menu:hover{
+    background-color: rgb(255, 27, 27);
+}
+
+.runner-menu{
+    position: absolute;
+    transform: translateY(30px);
+    transition:  transform 0.5s;
+}
+
+.arrow-runner{
+    width: 10px; 
+    height: 40px; 
+    margin: 10px 0;
+    background: rgb(255, 27, 27);
+    position: relative;
+    display: block;    
+}
+
+@media (max-width: 700px) {
+    .arrow-runner{
+        display: none;
+    }
+}
+
+.arrow-runner:after {
+    content: "";
+    width: 0; 
+    height: 0;
+    position: absolute; 
+    top: -10px; 
+    left: 100%;
+    border-width: 30px 0 30px 45px;
+    border-style: solid;
+    border-color: transparent rgb(255, 27, 27);
+}
+
+.thumb-menu{
+    padding: 0;
+    display: none;
+}
+
+.range-menu{
+    display: block;
+    margin: 50px auto 5px auto;
+    width: 400px;
+    cursor: pointer;
+    /* accent-color: rgb(255, 27, 27); */
+}
+
+.red-range{
+    accent-color: rgb(255, 27, 27);
+}
+
+.green-range{
+    accent-color: rgb(35, 255, 27);
+}
+
+.yellow-range{
+    accent-color: rgb(240, 255, 27);
+}
+
+.start{
+    margin-top: 50px;
+    text-align: center;
+    font-size: 3rem;
+    cursor: pointer;
+    color: white;
+}
+
+.start:hover{
+    color: rgb(255, 27, 27);
+}
