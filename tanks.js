@@ -27,7 +27,7 @@ class Tank {
         this.arrFire = []
     }
 
-    funRandom(min, max) {
+    _funRandom(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min
     }
 
@@ -42,7 +42,7 @@ class Tank {
         }
     }
 
-    temporaryArmor(t = 2) {
+    _temporaryArmor(t = 2) {
         this.invulnerability = true
         this.effect = true
         this.effectSrc = this.skin[5]
@@ -53,7 +53,7 @@ class Tank {
         }, t * 1000)
     }
 
-    killed(thisIsInv = false, obj = { x: this.wh.w / 2, y: this.wh.h / 2 }) {
+    _killed(thisIsInv = false, obj = { x: this.wh.w / 2, y: this.wh.h / 2 }) {
         this.src = this.skin[4]
         this.iKilled = true
         if(this.hp) {
@@ -70,7 +70,7 @@ class Tank {
                 this.iKilled = false
                 this.src = this.skin[0]
                 if (thisIsInv) {
-                    this.temporaryArmor(5)
+                    this._temporaryArmor(5)
                 }             
                 clearTimeout(timeKill)
             }, 1000)
@@ -118,7 +118,7 @@ class Tank {
         }
     }
 
-    rechargeTime(time) {
+    _rechargeTime(time) {
         this.recharge = true
         const t = setTimeout(() => {
             this.recharge = false
@@ -126,10 +126,10 @@ class Tank {
         }, time * 1000)
     }
     
-    activeFire() {
+    _activeFire() {
         if (!this.recharge) {
             this.arrFire.push(new Missile(this.fireShotX(), this.fireShotY(), this.positionWeapon, 3))
-            this.rechargeTime(this.timeRech)
+            this._rechargeTime(this.timeRech)
             if(this.invulnerability){
                 this.invulnerability = false
                 this.effect = false
@@ -205,7 +205,7 @@ class Player extends Tank {
         this.score = 0
     }
 
-    progress(){
+    _progress(){
         this.murders++
         this.score = this.score + 100
         this.info.renderInfo({kills:this.murders, score: this.score})
@@ -220,7 +220,7 @@ class Player extends Tank {
             if (key === "ArrowDown") { this.down = true }
             if (key === " ") {
                 this.fire = true;
-                this.activeFire()
+                this._activeFire()
             }
         } else if (!down) {
             this.downKey = false
@@ -240,7 +240,7 @@ class Mob extends Tank {
         this.plane = false
     }
 
-    choosingTrajectory() {
+    _choosingTrajectory() {
         let xtr = Math.abs(this.x - this.purpose.x), ytr = Math.abs(this.y - this.purpose.y)
         if (xtr > ytr) {
             return false
@@ -249,19 +249,19 @@ class Mob extends Tank {
         }
     }
 
-    timerAction() {
+    _timerAction() {
         this.action = true
         const ogogo = setTimeout(() => {
             if (this.action) {
                 this.action = false
-                this.plane = this.choosingTrajectory()
+                this.plane = this._choosingTrajectory()
             }
             clearTimeout(ogogo)
-        }, this.funRandom(1, 4) * 1000)
+        }, this._funRandom(1, 4) * 1000)
     }
 
-    revival() {
-        let randomnum = this.funRandom(0, 20)
+    _revival() {
+        let randomnum = this._funRandom(0, 20)
         if (randomnum > 0 && randomnum <= 5) {
             return { x: this.sizex / 2, y: this.sizey / 2 }
         } else if (randomnum > 5 && randomnum <= 10) {
@@ -276,15 +276,15 @@ class Mob extends Tank {
     intelligence() {
         let closerX = Math.abs(this.x - this.purpose.x), closerY = Math.abs(this.y - this.purpose.y)
         if (closerX < this.sizex && closerY < this.sizey && !this.purpose.iKilled && !this.purpose.invulnerability && !this.iKilled) {
-            this.purpose.killed(true)
+            this.purpose._killed(true)
         }
         if (this.purpose.arrFire.length > 0) {
             for (let item of this.purpose.arrFire) {
                 let fireFlyX = Math.abs(this.x - item.x - 4), fireFlyY = Math.abs(this.y - item.y - 4)
                 if (fireFlyX < 24 && fireFlyY < 24 && !this.iKilled) {
                     item.remove = true
-                    this.killed(false, this.revival())
-                    this.purpose.progress()
+                    this._killed(false, this._revival())
+                    this.purpose._progress()
                 }
             }
         }
@@ -294,14 +294,14 @@ class Mob extends Tank {
                 (this.positionWeapon === "right" && Math.abs(this.y - this.purpose.y) < 40 && (this.x - this.purpose.x) < 0) ||
                 (this.positionWeapon === "left" && Math.abs(this.y - this.purpose.y) < 40 && (this.x - this.purpose.x) > 0))) {
             this.fire = true;
-            this.activeFire()
+            this._activeFire()
         }
         if (this.arrFire.length > 0) {
             for (let item of this.arrFire) {
                 let fireFlyX = Math.abs(this.purpose.x - item.x - 4), fireFlyY = Math.abs(this.purpose.y - item.y - 4)
                 if (fireFlyX < 24 && fireFlyY < 24 && !this.purpose.iKilled && !this.purpose.invulnerability) {
                     item.remove = true
-                    this.purpose.killed(true)
+                    this.purpose._killed(true)
                 }
             }
         }
@@ -313,12 +313,12 @@ class Mob extends Tank {
                 if (this.y > this.purpose.y) {
                     this.up = true
                     this.down = false
-                    this.timerAction()
+                    this._timerAction()
                 }
                 if (this.y < this.purpose.y) {
                     this.down = true
                     this.up = false
-                    this.timerAction()
+                    this._timerAction()
                 }
             } else {
                 this.up = false
@@ -326,12 +326,12 @@ class Mob extends Tank {
                 if (this.x < this.purpose.x) {
                     this.right = true
                     this.left = false
-                    this.timerAction()
+                    this._timerAction()
                 }
                 if (this.x > this.purpose.x) {
                     this.left = true
                     this.right = false
-                    this.timerAction()
+                    this._timerAction()
                 }
             }
         }
@@ -340,7 +340,7 @@ class Mob extends Tank {
 
 class Missile {
     constructor(x, y, direction, speed) {
-        this.id = this.idgenerator()
+        this.id = this._idgenerator()
         this.x = x
         this.y = y
         this.direction = direction
@@ -348,7 +348,7 @@ class Missile {
         this.remove = false
     }
 
-    idgenerator() {
+    _idgenerator() {
         return Math.random().toString(36).substring(3, 10);
     }
 }

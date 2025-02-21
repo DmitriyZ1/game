@@ -62,12 +62,12 @@ class StartMenu {
         this.itemMenu = this.arrMenu[this.countMenu]
         this.menuBlockDOM = menuBlockDOM
         this.gameDOM = gemeDOM
-        this.funStart = funStart
+        this._funStart = funStart
         this.setting = { speedMob: 0, timeRechMob: 0, numberMob: 4 }
         this.helpDOM = helpDOM
     }
 
-    renderMenu() {
+    _renderMenu() {
         if (this.titleDOM && this.listDOM && this.runnerDOM && this.countDOM && this.thumbDOM) {
             if ("title" in this.itemMenu) {
                 this.titleDOM.style.display = "block"
@@ -94,14 +94,14 @@ class StartMenu {
             if ("count" in this.itemMenu) {
                 this.thumbDOM.style.display = "block"
                 this.rangeDOM.setAttribute('max', this.itemMenu.count)
-                this.rangeInput()
+                this._rangeInput()
             } else {
                 this.thumbDOM.style.display = "none"
             }
         }
     }
 
-    rangeInput() {
+    _rangeInput() {
         const range = this.rangeDOM
         const count = this.countDOM
         count.textContent = range.value
@@ -121,13 +121,13 @@ class StartMenu {
         }
     }
 
-    clickMenu(d) {
+    _clickMenu(d) {
         const comm = this.itemMenu.list.find(i => i.name === d).command
         switch (comm) {
             case "start":
                 this.countMenu++
                 this.itemMenu = this.arrMenu[this.countMenu]
-                this.renderMenu()
+                this._renderMenu()
                 break
             case "help":
                 this.helpDOM.style.display = "block"
@@ -137,35 +137,35 @@ class StartMenu {
                 this.itemMenu = this.arrMenu[this.countMenu]
                 this.setting.speedMob = 0.5
                 this.setting.timeRechMob = 3
-                this.renderMenu()
+                this._renderMenu()
                 break
             case "norm":
                 this.countMenu++
                 this.itemMenu = this.arrMenu[this.countMenu]
                 this.setting.speedMob = 1
                 this.setting.timeRechMob = 2
-                this.renderMenu()
+                this._renderMenu()
                 break
             case "hard":
                 this.countMenu++
                 this.itemMenu = this.arrMenu[this.countMenu]
                 this.setting.speedMob = 2
                 this.setting.timeRechMob = 1
-                this.renderMenu()
+                this._renderMenu()
                 break
             case "super hard":
                 this.countMenu++
                 this.itemMenu = this.arrMenu[this.countMenu]
                 this.setting.speedMob = 2.5
                 this.setting.timeRechMob = 0.8
-                this.renderMenu()
+                this._renderMenu()
                 break
             default:
                 return
         }
     }
 
-    mouseControl() {
+    _mouseControl() {
         const elemMenu = this.menuElemDOM
         const runner = this.runnerDOM
         function eventOver(e) {
@@ -177,13 +177,13 @@ class StartMenu {
         function eventClick(e) {
             if (e.target.tagName === 'LI') {
                 const text = e.target.innerText
-                this.clickMenu(text)
+                this._clickMenu(text)
             }
             if (e.target.id === "start-button") {
-                this.removeMenu()
+                this._removeMenu()
                 this.gameDOM.style.display = "block"
-                if(this.funStart){
-                    this.funStart(this.setting)
+                if(this._funStart){
+                    this._funStart(this.setting)
                 }
             }
             if (e.target.id === "help") {
@@ -196,13 +196,13 @@ class StartMenu {
         }
     }
 
-    removeMenu() {
+    _removeMenu() {
         this.menuBlockDOM.remove()
     }
 
     letsGo(){
-        this.renderMenu()
-        this.mouseControl()
+        this._renderMenu()
+        this._mouseControl()
     }
 }
 

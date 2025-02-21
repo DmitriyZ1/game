@@ -9,7 +9,7 @@ class TimeGame{
         this.interval;
     }
 
-    updateTime() {
+    _updateTime() {
         this.sec++
         if(this.sec === 60){
             this.min++
@@ -27,7 +27,7 @@ class TimeGame{
     }
 
     startTime(){
-        this.interval = setInterval(this.updateTime.bind(this), 1000);
+        this.interval = setInterval(this._updateTime.bind(this), 1000);
     }
 
     stopTime(){
@@ -74,7 +74,7 @@ class InfoPanel{
             }
             if('hp' in obj){
                 this.blockHP.innerHTML = ''
-                this.blockHP.appendChild(this.hpRender(obj.hp))
+                this.blockHP.appendChild(this._hpRender(obj.hp))
             }
         }
     }
@@ -87,7 +87,7 @@ class InfoPanel{
         return this.time.stopTime()
     }
 
-    hpRender(n){
+    _hpRender(n){
         const hp = document.createElement('div')
         hp.classList.add('hp-line')
         for(let i = 0; i < n; i++){
